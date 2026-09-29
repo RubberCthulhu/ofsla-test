@@ -2,9 +2,9 @@
 
 Тренажёр для подготовки к экзамену на свидетельство пилота параплана ОФСЛА (тест «Пилот СВС 115», пилоты-парапланеристы 3–5 уровней).
 
-**Открыть тренажёр:**
+## Как использовать
 
-| Сайт | Telegram |
+| Web | Telegram |
 |:---:|:---:|
 | <img src="doc/qr.svg" alt="QR-код со ссылкой на сайт тренажёра" width="180"> | <img src="doc/qr-bot.svg" alt="QR-код со ссылкой на Telegram-бота" width="180"> |
 | https://rubbercthulhu.github.io/ofsla-test/ | [t.me/OFSLAtestBot/trainer](https://t.me/OFSLAtestBot/trainer) |
