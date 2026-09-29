@@ -21,6 +21,7 @@ npm run dev / npm run preview
 - Чистая логика (проверка ответа, билет, статистика) — в `src/logic/`, покрыта тестами. Экраны в `src/screens/`, компоненты в `src/components/`.
 - Постоянные данные — только через `src/store/storage.ts` (ключи `ofsla:v1:*`): туда потом добавится Telegram CloudStorage. Меняешь формат сохранённых данных — повышай версию ключа.
 - Иконки PWA генерируются из `web/assets/icon.svg` при сборке. Так как `publicDir` занят данными, у `pwaAssets` задан свой `integration.publicDir`, а ссылки на иконки прописаны в `index.html` вручную.
+- Деплой: `.github/workflows/deploy.yml` при push в `main` (npm ci → test → build → GitHub Pages), сайт https://rubbercthulhu.github.io/ofsla-test/.
 - Частичного зачёта нет: `matching` и `multiple` засчитываются только при полном совпадении.
 
 ## Данные
