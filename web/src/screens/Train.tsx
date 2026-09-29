@@ -8,6 +8,7 @@ import { isMastered } from '../logic/stats';
 import { href } from '../router';
 import { getProgress, recordResults } from '../store/progress';
 import { getSettings } from '../store/settings';
+import { haptic } from '../telegram';
 
 interface Props {
   bank: QuestionBank;
@@ -61,6 +62,7 @@ export function Train({ bank, query }: Props) {
   const check = () => {
     const right = isCorrect(q, answer);
     recordResults([{ id: q.id, ok: right }]);
+    haptic(right ? 'success' : 'error');
     setScore((s) => ({ right: s.right + (right ? 1 : 0), done: s.done + 1 }));
     setChecked(true);
   };

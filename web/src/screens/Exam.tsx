@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'preact/hooks';
+import { useEffect, useMemo, useState } from 'preact/hooks';
 import { ConfirmDialog } from '../components/ConfirmDialog';
 import { Page } from '../components/Page';
 import { QuestionView } from '../components/QuestionView';
@@ -16,6 +16,7 @@ import {
 } from '../store/exams';
 import { recordResults } from '../store/progress';
 import { getSettings } from '../store/settings';
+import { haptic, setClosingConfirmation } from '../telegram';
 
 export function Exam({ bank }: { bank: QuestionBank }) {
   const [state, setState] = useState<ExamState | null>(getExamInProgress);
@@ -70,6 +71,10 @@ interface RunProps {
 function ExamRun({ bank, state, setState }: RunProps) {
   const byId = useMemo(() => new Map(bank.questions.map((q) => [q.id, q])), [bank]);
   const [confirm, setConfirm] = useState(false);
+  useEffect(() => {
+    setClosingConfirmation(true);
+    return () => setClosingConfirmation(false);
+  }, []);
   const questions = state.ticket.map((id) => byId.get(id)!);
   const q = questions[state.current];
   const unanswered = questions.filter((x) => !isAnswered(x, state.answers[x.id])).length;
@@ -88,6 +93,7 @@ function ExamRun({ bank, state, setState }: RunProps) {
     // в прогресс идут только вопросы, на которые дан ответ
     recordResults(answered.map((x) => ({ id: x.id, ok: correctIds.includes(x.id) })));
     const id = String(Date.now());
+    const isPassedNow = (correctIds.length / questions.length) * 100 >= state.passPercent;
     addExamResult({
       id,
       finishedAt: Date.now(),
@@ -98,6 +104,7 @@ function ExamRun({ bank, state, setState }: RunProps) {
       correctIds,
     });
     clearExamInProgress();
+    haptic(isPassedNow ? 'success' : 'warning');
     navigate(`result/${id}`, undefined, true);
   };
 

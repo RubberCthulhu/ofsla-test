@@ -15,8 +15,9 @@
   color-scheme: light dark;
 }
 
+/* тёмная тема: по настройке системы или по теме Telegram (data-theme ставит src/telegram.ts) */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme='light']) {
     --bg: #111317;
     --surface: #1b1e24;
     --text: #e8eaee;
@@ -30,6 +31,21 @@
     --wrong: #f87171;
     --wrong-soft: #3a1a1a;
   }
+}
+
+:root[data-theme='dark'] {
+  --bg: #111317;
+  --surface: #1b1e24;
+  --text: #e8eaee;
+  --muted: #9aa1ad;
+  --border: #2e333c;
+  --accent: #5b8cff;
+  --accent-soft: #1f2d52;
+  --accent-text: #0b1020;
+  --right: #4ade80;
+  --right-soft: #16301f;
+  --wrong: #f87171;
+  --wrong-soft: #3a1a1a;
 }
 
 * {
@@ -65,6 +81,10 @@ a {
   padding-top: max(8px, env(safe-area-inset-top));
   background: var(--surface);
   border-bottom: 1px solid var(--border);
+}
+
+.topbar.no-back {
+  grid-template-columns: 1fr auto;
 }
 
 .topbar h1 {

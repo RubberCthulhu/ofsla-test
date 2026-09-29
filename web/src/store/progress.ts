@@ -14,6 +14,12 @@ export function recordResults(results: { id: number; ok: boolean }[]): void {
   save('progress', progress);
 }
 
+/** Сбрасывает прогресс; метка времени нужна, чтобы при синхронизации не вернулись записи с других устройств */
 export function resetProgress(): void {
   remove('progress');
+  save('resetAt', Date.now());
+}
+
+export function getResetAt(): number {
+  return load<number>('resetAt', 0);
 }

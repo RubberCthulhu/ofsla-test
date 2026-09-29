@@ -21,6 +21,8 @@ npm run dev / npm run preview
 - Чистая логика (проверка ответа, билет, статистика) — в `src/logic/`, покрыта тестами. Экраны в `src/screens/`, компоненты в `src/components/`.
 - Постоянные данные — только через `src/store/storage.ts` (ключи `ofsla:v1:*`): туда потом добавится Telegram CloudStorage. Меняешь формат сохранённых данных — повышай версию ключа.
 - Иконки PWA генерируются из `web/assets/icon.svg` при сборке. Так как `publicDir` занят данными, у `pwaAssets` задан свой `integration.publicDir`, а ссылки на иконки прописаны в `index.html` вручную.
+- Telegram Mini App: `src/telegram.ts` (SDK грузится динамически только при `tgWebAppData` в hash/sessionStorage; вне Telegram все функции — no-op). Синхронизация — `src/store/cloud.ts`: localStorage основной, изменения с задержкой уходят в CloudStorage кусками по 4000 символов (`<key>__n`, `<key>__i`); при старте `hydrate` объединяет данные (`src/store/merge.ts`). Новый постоянный ключ — добавь в `SYNCED` и правило объединения.
+- `@twa-dev/sdk` — CommonJS: после сборки default-экспорт двойной, поэтому WebApp берётся из `window.Telegram.WebApp`.
 - Деплой: `.github/workflows/deploy.yml` при push в `main` (npm ci → test → build → GitHub Pages), сайт https://rubbercthulhu.github.io/ofsla-test/.
 - Частичного зачёта нет: `matching` и `multiple` засчитываются только при полном совпадении.
 
