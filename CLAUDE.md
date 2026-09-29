@@ -1,13 +1,27 @@
 # CLAUDE.md
 
-Тренажёр к экзамену ОФСЛА для пилотов парапланов. Сейчас есть только банк вопросов, извлечённый из PDF. Формат приложения (веб или Telegram-бот) ещё не выбран. Контент и интерфейс — на русском.
+Тренажёр к экзамену ОФСЛА для пилотов парапланов: банк вопросов, извлечённый из PDF (`tools/`, `data/`), и статическое веб-приложение без сервера (`web/`, PWA). Позже планируется открывать его как Telegram Mini App. Контент и интерфейс — на русском.
 
 ## Команды
 
 ```sh
 python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python tools/extract_questions.py   # перегенерирует data/questions.json и data/img/
+
+cd web && npm install
+npm test            # Vitest: web/src/logic/*.test.ts
+npm run build       # tsc --noEmit + vite build (+ service worker и иконки PWA)
+npm run dev / npm run preview
 ```
+
+## Веб-приложение (web/)
+
+- Vite + TypeScript + Preact, без UI-библиотек и state-менеджеров. Роутинг — свой hash-router (`src/router.ts`), чтобы статика работала из любого подкаталога.
+- `publicDir: '../data'` — данные раздаются из `data/` без копирования; `base: './'`.
+- Чистая логика (проверка ответа, билет, статистика) — в `src/logic/`, покрыта тестами. Экраны в `src/screens/`, компоненты в `src/components/`.
+- Постоянные данные — только через `src/store/storage.ts` (ключи `ofsla:v1:*`): туда потом добавится Telegram CloudStorage. Меняешь формат сохранённых данных — повышай версию ключа.
+- Иконки PWA генерируются из `web/assets/icon.svg` при сборке. Так как `publicDir` занят данными, у `pwaAssets` задан свой `integration.publicDir`, а ссылки на иконки прописаны в `index.html` вручную.
+- Частичного зачёта нет: `matching` и `multiple` засчитываются только при полном совпадении.
 
 ## Данные
 
