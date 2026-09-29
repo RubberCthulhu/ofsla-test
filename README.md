@@ -7,8 +7,8 @@
 | Сайт | Telegram |
 |:---:|:---:|
 | <img src="doc/qr.svg" alt="QR-код со ссылкой на сайт тренажёра" width="180"> | <img src="doc/qr-bot.svg" alt="QR-код со ссылкой на Telegram-бота" width="180"> |
-| https://rubbercthulhu.github.io/ofsla-test/ | [@OFSLAtestBot](https://t.me/OFSLAtestBot) |
-| в браузере; на телефоне устанавливается как приложение и работает без интернета | кнопка меню в чате с ботом; прогресс общий для всех устройств |
+| https://rubbercthulhu.github.io/ofsla-test/ | [t.me/OFSLAtestBot/trainer](https://t.me/OFSLAtestBot/trainer) |
+| в браузере; на телефоне устанавливается как приложение и работает без интернета | открывается прямо в Telegram; прогресс общий для всех устройств |
 
 Наведите камеру телефона на QR-код.
 
@@ -85,7 +85,7 @@ SDK (`@twa-dev/sdk`) загружается только при запуске �
 2. @BotFather → `/mybots` → бот → Bot Settings → Configure Mini App → Enable Mini App → URL `https://rubbercthulhu.github.io/ofsla-test/`.
 3. Там же Bot Settings → Menu Button → URL тот же, текст кнопки, например «Тренажёр».
 
-Бот проекта — [@OFSLAtestBot](https://t.me/OFSLAtestBot). После этого приложение открывается кнопкой меню в чате с ботом и по ссылке `https://t.me/<username>/app` (если задан short name в /newapp).
+Бот проекта — [@OFSLAtestBot](https://t.me/OFSLAtestBot). Приложение открывается кнопкой меню в чате с ботом или прямой ссылкой https://t.me/OFSLAtestBot/trainer (зарегистрирована через `/newapp`, short name `trainer`; обложка — `doc/miniapp-cover.png`).
 
 ### Публикация
 
