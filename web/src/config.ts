@@ -7,7 +7,7 @@ export interface Settings {
 }
 
 export const DEFAULT_SETTINGS: Settings = {
-  examCount: 40,
+  examCount: 50,
   examMinutes: 45,
   passPercent: 90,
   shuffleOptions: false,
